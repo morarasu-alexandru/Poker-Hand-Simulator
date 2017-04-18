@@ -1,6 +1,6 @@
 // var Hand = require('pokersolver').Hand;
-// import { Hand } from 'pokersolver';
-// console.log(Hand)
+import { Hand } from 'pokersolver';
+console.log(Hand)
 
 export class App {
   constructor() {
