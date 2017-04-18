@@ -1,0 +1,36 @@
+<template>
+  <h1 class="Title">Poker Hand Simulator</h1>
+  <main class="Main clearfix">
+    <div class="MainWrapper">
+      <h2 class="Title">Viewer</h2>
+      <div class="Board" id="Board">
+        <div class="Street Flop" id="Flop"></div>
+        <div class="Street Turn" id="Turn"></div>
+        <div class="Street River" id="River"></div>
+      </div>
+      <div class="BoardButtons" id="BoardButtons">
+        <button class="Button" click.trigger="generateFlop()" >Generate Flop</button>
+        <button class="Button" click.trigger="generateTurn()" >Generate Turn</button>
+        <button class="Button" click.trigger="generateRiver()" >Generate River</button>
+      </div>
+      <div class="YourHandSection">
+        <p class="Text">Your Hand:</p>
+        <!--<img class="Img" src="src/cards/${insertedhand[0]}.png"/>-->
+        <!--<img class="Img" src="src/cards/${insertedhand[1]}.png" />-->
+      </div>
+      <p class="TextHand">${handinput}</p>
+    </div>
+    <div class="MainOdds">
+      <h2 class="Title">Odds</h2>
+    </div>
+
+  </main>
+
+  <section class="HandSelector">
+    <h2>Handselector</h2>
+    <label>Insert Hand:</label>
+    <input type="text" maxlength="4" value.bind="handinput" keyUp.trigger="change($event)">
+    <p id="targetT"></p>
+
+  </section>
+</template>
