@@ -35,6 +35,9 @@ export class App {
   change(event) {
     let value = event.target.value;
     this.insertedhand = updateHand(this.handinput);
+    if(this.insertedhand) {
+        document.getElementById('YourHandSection').insertAdjacentHTML('beforeend', `<img class="Img" src="static/cards/${this.insertedhand[0]}.png"/>`);
+     }
   }
 
   generateFlop() {
