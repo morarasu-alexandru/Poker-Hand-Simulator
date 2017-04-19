@@ -61,7 +61,7 @@ export class App {
 
         generatedCard = this.deck[getRandomInt(0, this.deck.length)];
         removeCardFromDeck(this.deck, generatedCard);
-        target.insertAdjacentHTML('beforeend', `<img class="Img" src="./cards/${generatedCard}.png">`);
+        target.insertAdjacentHTML('beforeend', `<img class="Img" src="./static/cards/${generatedCard}.png">`);
         this.flop.push(generatedCard);
       }
 
