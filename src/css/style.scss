@@ -1,0 +1,31 @@
+﻿body { background: rgba(0,0,0,0.15); }
+
+.Main { display: block; height: auto; padding: 10px; border: 2px dashed blue; }
+  .MainWrapper { display: block; float: left; width: 70%; border: 1px dashed #000; box-sizing: border-box;
+    .Title { text-align: center; }
+  }
+    .Board { display: block; width: 427px; height: auto; margin: 0 auto; padding: 15px; background: #808fe1;
+        .Img { display: block; float: left; width: 60px; margin: 0 10px; }
+    }
+      .Street { display: inline-block; box-sizing: border-box; border: 1px solid #6877c9; }
+      .Flop { width: 245px; height: 110px; padding: 10px 0; }
+      .Turn { width: 82px; height: 110px; padding: 10px 0; margin: 0 5px; }
+.River { width: 82px; height: 110px; padding: 10px 0; }
+.BoardButtons { display: block; width: 457px; box-sizing: border-box; margin: 10px auto 0 auto; padding: 10px; background: rgba(0,0,0,0.25);
+      .Button { width: 32%; }
+    }
+    .YourHandSection { display: block; height: 50px; margin: 20px 0 0 0;
+      .Text { display: block; float: left; margin: 0; }
+      .Img { display: block; float: left; width: 60px; margin: 0 0 0 10px; }
+    }
+       .TextHand { display: block; float: left; clear: both; margin: 10px 0 0 81px; }
+  .MainOdds { display: block; float: left; width: 29%; height: 200px; margin-left: 1%; border: 1px dashed #000; box-sizing: border-box;
+    .Title { text-align: center; }
+  }
+
+.HandSelector { margin: 10px 0 0 0; padding: 10px; border: 2px dashed red; }
+
+
+
+.clearfix:after { display: block; visibility: hidden; overflow: hidden; clear: both; content: "XXXXXXXXXXXXXXXXXXXX"; font-size: 2px; text-indent: 30000px; }
+//sass --watch style.scss:style.css
