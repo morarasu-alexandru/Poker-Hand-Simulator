@@ -35,8 +35,9 @@ export class App {
   change(event) {
     let value = event.target.value;
     this.insertedhand = updateHand(this.handinput);
+    console.log(this.insertedhand);
     if(this.insertedhand) {
-        document.getElementById('YourHandSection').insertAdjacentHTML('beforeend', `<img class="Img" src="static/cards/${this.insertedhand[0]}.png"/>`);
+        document.getElementById('YourHandSection').insertAdjacentHTML('beforeend', `<img class="Img" src="https://everymatrix.com/front-end-academy/alex/img/cards/${this.insertedhand[0]}.png"/>`);
      }
   }
 
