@@ -1,9 +1,10 @@
-// var Hand = require('pokersolver').Hand;
-import { Hand } from 'pokersolver';
+import {Hand} from 'pokersolver';
 console.log(Hand)
 
 export class App {
   constructor() {
+    this.cardshref = "https://everymatrix.com/front-end-academy/alex/img/cards/";
+
     this.singleHandRank = {
       '2': 2,
       '3': 3,
@@ -29,16 +30,32 @@ export class App {
     this.flop = [];
     this.turn = '';
     this.river = '';
+    this.playerHand = [];
 
   }
 
   change(event) {
     let value = event.target.value;
+    let target = document.getElementById('YourHand');
     this.insertedhand = updateHand(this.handinput);
     console.log(this.insertedhand);
-    if(this.insertedhand) {
-        document.getElementById('YourHandSection').insertAdjacentHTML('beforeend', `<img class="Img" src="https://everymatrix.com/front-end-academy/alex/img/cards/${this.insertedhand[0]}.png"/>`);
-     }
+
+    while (target.firstChild) {
+      target.removeChild(target.firstChild);
+    }
+
+    if (this.insertedhand.length !== 0) {
+      if(this.insertedhand.length ===1) {
+        target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[0]}.png"/>`);
+      } else {
+      target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[0]}.png"/>`);
+      target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[1]}.png"/>`);
+      }
+
+    }
+    this.playerHand = updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+    console.log(this.playerHand);
+    console.log(Hand.solve(this.playerHand));
   }
 
   generateFlop() {
@@ -62,9 +79,11 @@ export class App {
 
         generatedCard = this.deck[getRandomInt(0, this.deck.length)];
         removeCardFromDeck(this.deck, generatedCard);
-        target.insertAdjacentHTML('beforeend', `<img class="Img" src="./static/cards/${generatedCard}.png">`);
+        target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + generatedCard}.png">`);
         this.flop.push(generatedCard);
       }
+      this.playerHand = addToArray(this.playerHand, this.flop);
+      updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
 
     }
 
@@ -92,12 +111,11 @@ export class App {
 
     generatedCard = this.deck[getRandomInt(0, this.deck.length)];
     removeCardFromDeck(this.deck, generatedCard);
-    target.insertAdjacentHTML('beforeend', `<img class="Img" src="./cards/${generatedCard}.png">`);
+    target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + generatedCard}.png">`);
     this.turn = generatedCard;
-    console.log(generatedCard);
-    console.log(removecards);
-    console.log(this.deck);
 
+    this.playerHand = addToArray(this.playerHand, this.turn);
+    updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
 
   }
 
@@ -122,13 +140,15 @@ export class App {
 
     generatedCard = this.deck[getRandomInt(0, this.deck.length)];
     removeCardFromDeck(this.deck, generatedCard);
-    target.insertAdjacentHTML('beforeend', `<img class="Img" src="./cards/${generatedCard}.png">`);
+    target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + generatedCard}.png">`);
     this.river = generatedCard;
-    console.log(generatedCard);
-    console.log(removecards);
-    console.log(this.deck);
+
+    this.playerHand = addToArray(this.playerHand, this.river);
+    updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+
 
   }
+
 }
 
 function updateHand(handinsert) {
@@ -152,6 +172,7 @@ function updateHand(handinsert) {
 
   return arr;
 }
+
 
 function removeCardFromDeck(arr, removeCard) {
 
@@ -180,3 +201,38 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+function addToArray(arr, input) {
+  if (typeof(input) === 'string' && input !== '') {
+    arr.push(input);
+  } else if (typeof(input) === 'object') {
+    for (let i = 0; i < input.length; i++) {
+      arr.push(input[i]);
+    }
+  }
+
+  return arr;
+}
+
+function updatePlayerHand(playerHand, insertHand, flop, turn, river) {
+  playerHand = [];
+  playerHand = addToArray(playerHand, insertHand);
+  playerHand = addToArray(playerHand, flop);
+  playerHand = addToArray(playerHand, turn);
+  playerHand = addToArray(playerHand, river);
+
+  return playerHand;
+}
+
+
+//Watcher on variable
+Object.defineProperty(Object.prototype, 'watch', {
+  value: function (prop, handler) {
+    let setter = function (val) {
+      return val = handler.call(this, val);
+    };
+    Object.defineProperty(this, prop, {
+      set: setter
+    });
+  }
+});

@@ -1,6 +1,4 @@
-<template>
-  <style>
-    body {
+body {
   background: rgba(0, 0, 0, 0.15); }
 
 .Main {
@@ -20,7 +18,7 @@
 
 .Board {
   display: block;
-  width: 457px;
+  width: 427px;
   height: auto;
   margin: 0 auto;
   padding: 15px;
@@ -107,48 +105,4 @@
   font-size: 2px;
   text-indent: 30000px; }
 
-    .YourHandStrenght { display: block; float: right; width: 200px; }
-
-  </style>
-  <h1 class="Title">Poker Hand Simulator</h1>
-  <main class="Main clearfix">
-    <div class="MainWrapper">
-      <h2 class="Title">Viewer</h2>
-      <div class="Board" id="Board">
-        <div class="Street Flop" id="Flop"></div>
-        <div class="Street Turn" id="Turn"></div>
-        <div class="Street River" id="River"></div>
-      </div>
-      <div class="BoardButtons" id="BoardButtons">
-        <button class="Button" click.trigger="generateFlop()" >Generate Flop</button>
-        <button class="Button" click.trigger="generateTurn()" >Generate Turn</button>
-        <button class="Button" click.trigger="generateRiver()" >Generate River</button>
-      </div>
-      <div class="YourHandSection" id="YourHandSection">
-        <p class="Text">Your Hand:</p>
-        <!--<img class="Img" src="src/cards/${insertedhand[0]}.png"/>-->
-        <!--<img class="Img" src="src/cards/${insertedhand[1]}.png" />-->
-        <div id="YourHand" class="YourHand">
-
-        </div>
-        <div id="YourHandStrenght" class="YourHandStrenght">
-          <p class="HandStrenghtTitle">Hand Strenght: </p>
-          <p id="HandStrenght" class="HandStrenght"></p>
-        </div>
-      </div>
-      <p class="TextHand">${handinput}</p>
-    </div>
-    <div class="MainOdds">
-      <h2 class="Title">Odds</h2>
-    </div>
-
-  </main>
-
-  <section class="HandSelector">
-    <h2>Handselector</h2>
-    <label>Insert Hand:</label>
-    <input type="text" maxlength="4" value.bind="handinput" keyUp.trigger="change($event)">
-    <p id="targetT"></p>
-
-  </section>
-</template>
+/*# sourceMappingURL=stylepoker.css.map */
