@@ -55,7 +55,10 @@ export class App {
     }
     this.playerHand = updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
     console.log(this.playerHand);
-    console.log(Hand.solve(this.playerHand));
+    if(this.playerHand.length !== 0 && this.playerHand.length !== 1) {
+      console.log(Hand.solve(this.playerHand));
+    }
+
   }
 
   generateFlop() {
@@ -149,6 +152,15 @@ export class App {
 
   }
 
+  updatePlayerHadnFunction() {
+    this.playerHand.watch('prop', function(value){
+    console.log('wow!',value);
+});
+
+  }
+
+
+
 }
 
 function updateHand(handinsert) {
@@ -224,15 +236,3 @@ function updatePlayerHand(playerHand, insertHand, flop, turn, river) {
   return playerHand;
 }
 
-
-//Watcher on variable
-Object.defineProperty(Object.prototype, 'watch', {
-  value: function (prop, handler) {
-    let setter = function (val) {
-      return val = handler.call(this, val);
-    };
-    Object.defineProperty(this, prop, {
-      set: setter
-    });
-  }
-});
