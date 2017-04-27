@@ -31,6 +31,7 @@ export class App {
     this.turn = '';
     this.river = '';
     this.playerHand = [];
+
   }
 
   change(event) {
@@ -44,17 +45,20 @@ export class App {
     }
 
     if (this.insertedhand.length !== 0) {
-      if(this.insertedhand.length ===1) {
+      if (this.insertedhand.length === 1) {
         target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[0]}.png"/>`);
       } else {
-      target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[0]}.png"/>`);
-      target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[1]}.png"/>`);
+        target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[0]}.png"/>`);
+        target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + this.insertedhand[1]}.png"/>`);
       }
 
     }
     this.playerHand = updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
     console.log(this.playerHand);
-    if(this.playerHand.length !== 0 && this.playerHand.length !== 1) {
+    if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
+      let result = Hand.solve(this.playerHand).descr;
+      if(document.getElementById('HandStrength')) {document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'))};
+      document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
   }
@@ -91,6 +95,13 @@ export class App {
 
     console.log(this.deck);
     console.log(this.flop);
+
+    if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
+      let result = Hand.solve(this.playerHand).descr;
+      document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'));
+      document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
+      console.log(Hand.solve(this.playerHand));
+    }
   }
 
   generateTurn() {
@@ -117,6 +128,13 @@ export class App {
 
     this.playerHand = addToArray(this.playerHand, this.turn);
     updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+
+    if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
+      let result = Hand.solve(this.playerHand).descr;
+      document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'));
+      document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
+      console.log(Hand.solve(this.playerHand));
+    }
 
   }
 
@@ -147,17 +165,14 @@ export class App {
     this.playerHand = addToArray(this.playerHand, this.river);
     updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
 
+    if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
+      let result = Hand.solve(this.playerHand).descr;
+      document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'));
+      document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
+      console.log(Hand.solve(this.playerHand));
+    }
 
   }
-
-  updatePlayerHadnFunction() {
-    this.playerHand.watch('prop', function(value){
-    console.log('wow!',value);
-});
-
-  }
-
-
 
 }
 
