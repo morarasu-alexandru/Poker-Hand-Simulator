@@ -31,7 +31,6 @@ export class App {
     this.turn = '';
     this.river = '';
     this.playerHand = [];
-
   }
 
   change(event) {
@@ -58,7 +57,6 @@ export class App {
     if(this.playerHand.length !== 0 && this.playerHand.length !== 1) {
       console.log(Hand.solve(this.playerHand));
     }
-
   }
 
   generateFlop() {
