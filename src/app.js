@@ -57,7 +57,10 @@ export class App {
     console.log(this.playerHand);
     if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
       let result = Hand.solve(this.playerHand).descr;
-      if(document.getElementById('HandStrength')) {document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'))};
+      if (document.getElementById('HandStrength')) {
+        document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'))
+      }
+      ;
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
@@ -87,14 +90,16 @@ export class App {
         target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + generatedCard}.png">`);
         this.flop.push(generatedCard);
       }
-      this.playerHand = addToArray(this.playerHand, this.flop);
-      updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+
 
     }
+
+    this.playerHand = updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
 
 
     console.log(this.deck);
     console.log(this.flop);
+    console.log(this.playerHand);
 
     if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
       let result = Hand.solve(this.playerHand).descr;
@@ -126,8 +131,7 @@ export class App {
     target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + generatedCard}.png">`);
     this.turn = generatedCard;
 
-    this.playerHand = addToArray(this.playerHand, this.turn);
-    updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+    this.playerHand = updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
 
     if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
       let result = Hand.solve(this.playerHand).descr;
@@ -162,8 +166,8 @@ export class App {
     target.insertAdjacentHTML('beforeend', `<img class="Img" src="${this.cardshref + generatedCard}.png">`);
     this.river = generatedCard;
 
-    this.playerHand = addToArray(this.playerHand, this.river);
-    updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+    this.playerHand = updatePlayerHand(this.playerHand, this.insertedhand, this.flop, this.turn, this.river);
+
 
     if (this.playerHand.length !== 0 && this.playerHand.length !== 1) {
       let result = Hand.solve(this.playerHand).descr;
