@@ -1,5 +1,5 @@
 import {Hand} from 'pokersolver';
-console.log(Hand)
+console.log(Hand);
 
 export class App {
   constructor() {
@@ -60,7 +60,7 @@ export class App {
       if (document.getElementById('HandStrength')) {
         document.getElementById('HandStrength').parentNode.removeChild(document.getElementById('HandStrength'))
       }
-      ;
+
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
