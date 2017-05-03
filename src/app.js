@@ -139,6 +139,7 @@ export class App {
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
+    simulateRiver( this.deck ,this.playerHand);
 
   }
 
@@ -175,6 +176,7 @@ export class App {
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
+
 
   }
 
@@ -253,3 +255,14 @@ function updatePlayerHand(playerHand, insertHand, flop, turn, river) {
   return playerHand;
 }
 
+function simulateTurnRiver() {
+
+}
+
+function simulateRiver(initialDeck, playerHand) {
+
+  console.log(initialDeck);
+  console.log(playerHand);
+
+
+}
