@@ -259,10 +259,20 @@ function simulateTurnRiver() {
 
 }
 
-function simulateRiver(initialDeck, playerHand) {
+function simulateRiver(deck, playerHand) {
 
-  console.log(initialDeck);
-  console.log(playerHand);
+    let result=[];
+    let indexToRemove = deck.length;
+    console.log(indexToRemove);
+
+    console.log(deck);
+    console.log(playerHand);
+    for( let i=0; i <deck.length; i++) {
+        playerHand.splice(indexToRemove, 1)
+        playerHand.push(deck.shift());
+
+        console.log(playerHand);
+    }
 
 
 }
