@@ -262,14 +262,16 @@ function simulateTurnRiver() {
 function simulateRiver(deck, playerHand) {
 
     let result=[];
-    let indexToRemove = deck.length;
-    console.log(indexToRemove);
+    let indexToRemove = playerHand.length;
 
-    console.log(deck);
-    console.log(playerHand);
     for( let i=0; i <deck.length; i++) {
-        playerHand.splice(indexToRemove, 1)
-        playerHand.push(deck.shift());
+        console.log(deck.length);
+
+        playerHand.splice(indexToRemove, 1);
+        playerHand.push(deck[i]);
+
+
+        //fac niste chestii
 
         console.log(playerHand);
     }
