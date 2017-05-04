@@ -263,18 +263,29 @@ function simulateRiver(deck, playerHand) {
 
     let result=[];
     let indexToRemove = playerHand.length;
+    let initialPlayerHandStrenght = Hand.solve(playerHand).rank;
+
 
     for( let i=0; i <deck.length; i++) {
-        console.log(deck.length);
-
         playerHand.splice(indexToRemove, 1);
         playerHand.push(deck[i]);
 
 
         //fac niste chestii
 
-        console.log(playerHand);
+        //paired hand preflop vs not paired hand
+
+        //doua perechi cu cartile din mana/ doua perechi cu o pereche de pe bord / doua perechi de pe bord
+
+        // cazul in care se joaca bordul
+
+        if(Hand.solve(playerHand).rank > initialPlayerHandStrenght) {
+            console.log(Hand.solve(playerHand));
+        }
     }
-
-
 }
+
+// Refactor simulateRiver function, schimb numele in simulateStreet(dupa ce va face asta)
+// Crearea mai multor functii pure separarte
+// Functie de creare a statisticilor
+// adaugarea dinamica a statisticilor
