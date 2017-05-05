@@ -183,11 +183,19 @@ export class App {
 
   generateStatisticsOneStreet(rawstatistics, initialHand) {
     let a = Hand.solve(initialHand).rank;
+    let filteredStatistics = [];
 
-    console.log(rawstatistics[1]);
-    console.log(initialHand);
-    console.log(a);
+    for(let i=0; i < rawstatistics.length; i++) {
+        if(rawstatistics[i].rank > a) {
+            filteredStatistics.push(rawstatistics[i])
+            // take into consideration paired and not paired hand
+            // board best card
+        }
 
+    }
+
+    console.log(rawstatistics);
+    console.log(filteredStatistics);
   }
 
 }
@@ -265,28 +273,17 @@ function updatePlayerHand(playerHand, insertHand, flop, turn, river) {
   return playerHand;
 }
 
-function simulateOneStreet(deck, playerHand) {
+function simulateOneStreet(deck, inputHand) {
   let result = [];
   let deckLenght = deck.length;
-  let indexToRemove = playerHand.length;
-
-  console.log(playerHand);
+  let indexToRemove = inputHand.length;
 
   for (let i = 0; i < deckLenght; i++) {
-    playerHand.splice(indexToRemove, 1);
-    playerHand.push(deck[i]);
-    result.push(Hand.solve(playerHand));
-
-    if (i = deckLenght - 1) {
-      playerHand.splice(indexToRemove, 1);
-      playerHand.push(deck[i]);
-      result.push(Hand.solve(playerHand));
-
-      playerHand.splice(indexToRemove, 1);
-    }
+    inputHand.splice(indexToRemove, 1);
+    inputHand.push(deck[i]);
+    result.push(Hand.solve(inputHand));
   }
-
-  console.log(playerHand);
+  inputHand.splice(indexToRemove, 1);
 
   return result;
 }
