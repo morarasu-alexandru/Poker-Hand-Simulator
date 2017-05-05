@@ -31,6 +31,7 @@ export class App {
     this.turn = '';
     this.river = '';
     this.playerHand = [];
+    this.posibilities = [];
 
   }
 
@@ -139,7 +140,7 @@ export class App {
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
-    simulateRiver( this.deck ,this.playerHand);
+    this.posibilities = simulateOneStreet(this.deck, this.playerHand);
 
   }
 
@@ -177,6 +178,15 @@ export class App {
       console.log(Hand.solve(this.playerHand));
     }
 
+
+  }
+
+  generateStatisticsOneStreet(rawstatistics, initialHand) {
+    let a = Hand.solve(initialHand).rank;
+
+    console.log(rawstatistics[1]);
+    console.log(initialHand);
+    console.log(a);
 
   }
 
@@ -255,37 +265,40 @@ function updatePlayerHand(playerHand, insertHand, flop, turn, river) {
   return playerHand;
 }
 
-function simulateTurnRiver() {
+function simulateOneStreet(deck, playerHand) {
+  let result = [];
+  let deckLenght = deck.length;
+  let indexToRemove = playerHand.length;
 
-}
+  console.log(playerHand);
 
-function simulateRiver(deck, playerHand) {
+  for (let i = 0; i < deckLenght; i++) {
+    playerHand.splice(indexToRemove, 1);
+    playerHand.push(deck[i]);
+    result.push(Hand.solve(playerHand));
 
-    let result=[];
-    let indexToRemove = playerHand.length;
-    let initialPlayerHandStrenght = Hand.solve(playerHand).rank;
+    if (i = deckLenght - 1) {
+      playerHand.splice(indexToRemove, 1);
+      playerHand.push(deck[i]);
+      result.push(Hand.solve(playerHand));
 
-
-    for( let i=0; i <deck.length; i++) {
-        playerHand.splice(indexToRemove, 1);
-        playerHand.push(deck[i]);
-
-
-        //fac niste chestii
-
-        //paired hand preflop vs not paired hand
-
-        //doua perechi cu cartile din mana/ doua perechi cu o pereche de pe bord / doua perechi de pe bord
-
-        // cazul in care se joaca bordul
-
-        if(Hand.solve(playerHand).rank > initialPlayerHandStrenght) {
-            console.log(Hand.solve(playerHand));
-        }
+      playerHand.splice(indexToRemove, 1);
     }
+  }
+
+  console.log(playerHand);
+
+  return result;
 }
+
 
 // Refactor simulateRiver function, schimb numele in simulateStreet(dupa ce va face asta)
 // Crearea mai multor functii pure separarte
 // Functie de creare a statisticilor
 // adaugarea dinamica a statisticilor
+
+//paired hand preflop vs not paired hand
+
+//doua perechi cu cartile din mana/ doua perechi cu o pereche de pe bord / doua perechi de pe bord
+
+// cazul in care se joaca bordul
