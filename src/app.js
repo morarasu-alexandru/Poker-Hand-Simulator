@@ -32,6 +32,8 @@ export class App {
     this.river = '';
     this.playerHand = [];
     this.posibilities = [];
+    this.posibilities2 = [];
+
 
   }
 
@@ -92,6 +94,11 @@ export class App {
         this.flop.push(generatedCard);
       }
 
+      this.posibilities = simulateOneStreet(this.deck, this.playerHand);
+      generateStatistics(this.posibilities, this.playerHand, this.deck, "OneStreet");
+
+      this.posibilities2 = simulateTwoStreets(this.deck, this.playerHand);
+      generateStatistics(this.posibilities2, this.playerHand, this.deck, "TwoStreets");
 
     }
 
@@ -140,7 +147,9 @@ export class App {
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
-    this.posibilities = simulateOneStreet(this.deck, this.playerHand);
+    this.posibilities = simulateOneStreet(this.deck, this.playerHand,);
+
+    generateStatistics(this.posibilities, this.playerHand, this.deck, "OneStreet");
 
   }
 
@@ -148,6 +157,7 @@ export class App {
     console.log("clicked River");
 
     let target = document.getElementById('River');
+    let target2 = document.getElementById('OneStreet');
     let generatedCard;
     let removecards = [];
     this.river = '';
@@ -177,25 +187,9 @@ export class App {
       document.getElementById('YourHandStrength').insertAdjacentHTML('beforeend', `<p id="HandStrength" class="HandStrength">${result}</p>`);
       console.log(Hand.solve(this.playerHand));
     }
-
-
-  }
-
-  generateStatisticsOneStreet(rawstatistics, initialHand) {
-    let a = Hand.solve(initialHand).rank;
-    let filteredStatistics = [];
-
-    for(let i=0; i < rawstatistics.length; i++) {
-        if(rawstatistics[i].rank > a) {
-            filteredStatistics.push(rawstatistics[i])
-            // take into consideration paired and not paired hand
-            // board best card
-        }
-
+    while (target2.firstChild) {
+      target2.removeChild(target2.firstChild);
     }
-
-    console.log(rawstatistics);
-    console.log(filteredStatistics);
   }
 
 }
@@ -273,7 +267,66 @@ function updatePlayerHand(playerHand, insertHand, flop, turn, river) {
   return playerHand;
 }
 
-function simulateOneStreet(deck, inputHand) {
+function generateStatistics(rawstatistics, initialHand, deck, street) {
+  let a = Hand.solve(initialHand).rank;
+  let filteredStatistics = [];
+  let filteredStatistics2 = [];
+  let filteredStatistics3 = [];
+  let filteredStatistics4 = [];
+  let target = document.getElementById(street);
+
+  for(let i=0; i < rawstatistics.length; i++) {
+      if(rawstatistics[i].rank > a) {
+          filteredStatistics.push(rawstatistics[i])
+          // take into consideration paired and not paired hand
+          // board best card
+      }
+  }
+  console.log(rawstatistics);
+  console.log(filteredStatistics);
+
+  for (let i=0; i < filteredStatistics.length; i++) {
+      filteredStatistics2.push(filteredStatistics[i].name);
+  }
+
+  console.log(filteredStatistics2);
+
+  filteredStatistics3 = countOccurances(filteredStatistics2);
+  console.log(filteredStatistics3)
+  console.log(filteredStatistics3[0][1], filteredStatistics3[1][1]);
+
+  for(let i=0; i < filteredStatistics3[0].length; i++) {
+
+    //   if(street === "OneStreet") {
+    //       let c = (filteredStatistics3[1][i]/deck.length) * 100;
+    //   } else if (street === "TwoStreets") {
+    //       let c =(filteredStatistics3[1][i]/(deck.length*46)) * 100;
+    //   }
+
+      let c = (filteredStatistics3[1][i]/deck.length) * 100;
+
+
+      filteredStatistics4.push(filteredStatistics3[0][i], c.toFixed(2));
+
+  }
+  console.log(filteredStatistics4);
+
+  while (target.firstChild) {
+    target.removeChild(target.firstChild);
+  }
+  if(street === 'OneStreet') {
+      target.insertAdjacentHTML('beforeend', '<p style="font-weight: bold">One street statistics:</p>');
+  } else if (street === 'TwoStreets') {
+      target.insertAdjacentHTML('beforeend', '<p style="font-weight: bold">Two streets statistics:</p>');
+  }
+  for(let i=0; i < filteredStatistics4.length; i += 2) {
+      target.insertAdjacentHTML('beforeend', `<p>${filteredStatistics4[i]}: <span>${filteredStatistics4[i+1]}%</span></p>`);
+  }
+}
+
+//simulate flop
+
+function simulateOneStreet(deck, inputHand, street) {
   let result = [];
   let deckLenght = deck.length;
   let indexToRemove = inputHand.length;
@@ -285,9 +338,51 @@ function simulateOneStreet(deck, inputHand) {
   }
   inputHand.splice(indexToRemove, 1);
 
+  console.log(street);
   return result;
 }
 
+
+function  simulateTwoStreets(deck, inputHand) {
+      let result = [];
+      let temporaryDeck = deck.slice();
+      let deckLenght = deck.length;
+      let indexToRemove = inputHand.length;
+      let indexToRemove2 = inputHand.length + 1;
+
+      for (let i = 0; i < deckLenght; i++) {
+          temporaryDeck = deck.slice();
+          inputHand.splice(indexToRemove, 1);
+
+          inputHand.push(deck[i]);
+          temporaryDeck.splice(i, 1);
+          for(let j = 0; j <temporaryDeck.length; j++) {
+               inputHand.push(temporaryDeck[j]);
+                result.push(Hand.solve(inputHand));
+                inputHand.splice(indexToRemove2, 1);
+          }
+       }
+      return result;
+  }
+
+
+
+function countOccurances(arr) {
+    var a = [], b = [], prev;
+
+    arr.sort();
+    for ( var i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== prev ) {
+            a.push(arr[i]);
+            b.push(1);
+        } else {
+            b[b.length-1]++;
+        }
+        prev = arr[i];
+    }
+
+    return [a, b];
+}
 
 // Refactor simulateRiver function, schimb numele in simulateStreet(dupa ce va face asta)
 // Crearea mai multor functii pure separarte

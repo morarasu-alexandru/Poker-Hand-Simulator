@@ -86,12 +86,16 @@
   display: block;
   float: left;
   width: 29%;
-  height: 200px;
+  min-height: 200px;
   margin-left: 1%;
   border: 1px dashed #000;
   box-sizing: border-box; }
   .MainOdds .Title {
     text-align: center; }
+    .MainOdds .Button { display: block; margin: 0 auto; }
+    .MainOdds .Odds { margin: 10px 0 0 0; padding: 0 1em; }
+
+
 
 .HandSelector {
   margin: 10px 0 0 0;
@@ -143,8 +147,9 @@
     </div>
     <div class="MainOdds">
       <h2 class="Title">Odds</h2>
-      <button class="Button" click.trigger="generateStatisticsOneStreet(posibilities, playerHand)">Generate
-        Statistics</button>
+      <button class="Button" click.trigger="simulateTwoStreets(deck, playerHand)">Generate Statistics</button>
+      <div id="OneStreet" class="Odds"></div>
+      <div id="TwoStreets" class="Odds"></div>
     </div>
 
   </main>
