@@ -394,3 +394,6 @@ function countOccurances(arr) {
 //doua perechi cu cartile din mana/ doua perechi cu o pereche de pe bord / doua perechi de pe bord
 
 // cazul in care se joaca bordul
+
+
+/*Comentariu*/
